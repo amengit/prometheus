@@ -1,2 +1,2 @@
 # prometheus
-scrits for monitoring openstack hosts via prometheus
+scripts for monitoring openstack hosts via prometheus
