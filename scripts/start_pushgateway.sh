@@ -5,7 +5,7 @@ echo "===== Start pushgateway docker ====="
 sudo docker stop pushgateway ; sudo docker rm pushgateway
 sudo docker images | grep pushgateway || sudo docker load <./$pushgw_image
 sudo docker run -d -it --name=pushgateway \
--p 9092:9091 \
+-p 9091:9091 \
 pushgateway-1031 \
 --web.enable-admin-api \
 --persistence.file=pushfile.txt \
