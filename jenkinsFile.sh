@@ -25,6 +25,9 @@ else
     exit 1
 fi
 
+echo "===== Open firewll to port 9090 ====="
+iptables -I INPUT -p tcp --dport 9090 -m state --state NEW -j ACCEPT
+
 echo "===== Configure ssh_config to not prompt message ====="
 if ! /etc/ssh/ssh_config | grep "StrictHostKeyChecking" > /dev/null
 then
