@@ -12,6 +12,6 @@ do
   for spt in ${scriptL[@]}
   do
     echo "  Run script $spt on $com"
-    bash ~/prometheus/scripts/$spt
+    ssh $com "bash ~/prometheus/scripts/$spt"
   done
 done
