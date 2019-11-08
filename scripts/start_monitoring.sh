@@ -2,7 +2,7 @@
 
 userName=cloudadmin
 computeL=$(openstack host list | grep compute | cut -d' ' -f2 | sort | uniq)
-echo "All computes $computeL"
+echo -e "All computes \n$computeL"
 scriptL=(push_cpu.sh push_io.sh push_memory.sh)
 for com in $computeL
 do
