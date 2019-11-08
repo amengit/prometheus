@@ -15,3 +15,6 @@ do
     ssh $com "bash ~/prometheus/scripts/$spt"
   done
 done
+
+echo "===== Open firewll to port 9091 ====="
+iptables -I INPUT -p tcp --dport 9091 -m state --state NEW -j ACCEPT
