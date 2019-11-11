@@ -18,3 +18,6 @@ else
     echo "Pushgateway docker starts FAILED, Job ABORTED!!!"
     exit 1
 fi
+
+echo "===== Open firewll to port 9091 ====="
+sudo iptables -I INPUT -p tcp --dport 9091 -m state --state NEW -j ACCEPT

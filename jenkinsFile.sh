@@ -8,6 +8,9 @@ then
   sleep 5
 fi
 
+# Update pushgateway target IP
+sed -i "/9091/ s/10.70.71.164/$(echo $openStackIp)/" ${WORKSPACE}/prometheus/config/prometheus.yml
+
 echo "===== Start prometheus docker ====="
 sudo docker stop prometheus ; sudo docker rm prometheus
 sudo docker pull prom/prometheus

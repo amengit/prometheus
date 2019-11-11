@@ -1,9 +1,19 @@
 #!/bin/bash -x
 
 userName=cloudadmin
+hostName=$(hostname)
+pushGWIp=$(cat /etc/hosts | grep $hostName | awk '{print $1}')
+
 computeL=$(openstack host list | grep compute | cut -d' ' -f2 | sort | uniq)
 echo -e "All computes \n$computeL"
 scriptL=(push_cpu.sh push_io.sh push_memory.sh)
+
+# update pushgateway server ip in monitoring scripts
+for spt in ${scriptL[@]}
+  do
+    sed -i "/pushGWIp/ s/http.*/$pushGWIp/" $spt
+  done
+
 for com in $computeL
 do
   echo "Copy scripts to $com and run it"
@@ -15,6 +25,3 @@ do
     ssh $com "bash ~/prometheus/scripts/$spt"
   done
 done
-
-echo "===== Open firewll to port 9091 ====="
-iptables -I INPUT -p tcp --dport 9091 -m state --state NEW -j ACCEPT

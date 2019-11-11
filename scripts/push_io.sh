@@ -21,6 +21,9 @@ rm -rf $iostat_out
 
 job_name="custom_io"
 instance_name=$(hostname)
+pushGWIp=http://192.168.54.19
+pushGWPort=9091
+
 echo > $iostat_push_file
 for dev in ${!io_status[*]}
 do
@@ -38,6 +41,6 @@ do
   echo >> $iostat_push_file
 done
 
-cat $iostat_push_file | curl --data-binary @- http://192.168.54.19:9091/metrics/job/$job_name/instance/$instance_name
+cat $iostat_push_file | curl --data-binary @- $pushGWIp:$pushGWPort/metrics/job/$job_name/instance/$instance_name
 rm -rf $iostat_push_file
 

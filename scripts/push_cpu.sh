@@ -8,8 +8,10 @@ cpu_io_wait=$(iostat -c | awk '/    /{print $4}')
 
 job_name="custom_cpu"
 instance_name=$(hostname)
+pushGWIp=http://192.168.54.19
+pushGWPort=9091
 
-cat <<EOF | curl --data-binary @- http://192.168.54.19:9091/metrics/job/$job_name/instance/$instance_name
+cat <<EOF | curl --data-binary @- $pushGWIp:$pushGWPort/metrics/job/$job_name/instance/$instance_name
 #TYPE custom_cpu_idle  gauge
 custom_cpu_idle $cpu_idle
 #TYPE custom_cpu_user  gauge
