@@ -11,7 +11,7 @@ scriptL=(push_cpu.sh push_io.sh push_memory.sh)
 # update pushgateway server ip in monitoring scripts
 for spt in ${scriptL[@]}
   do
-    sed -i "/pushGWIp/ s/http.*/$pushGWIp/" $spt
+    sed -i "/pushGWIp/ s/http.*/$pushGWIp/" ./prometheus/scripts/$spt
   done
 
 for com in $computeL
@@ -19,9 +19,5 @@ do
   echo "Copy scripts to $com and run it"
   ssh $com "rm -rf ./prometheus/;mkdir -p ./prometheus/"
   scp -r ./prometheus/scripts/ $userName@$com:./prometheus/
-  for spt in ${scriptL[@]}
-  do
-    echo "  Run script $spt on $com"
-    ssh $com "bash ~/prometheus/scripts/$spt"
-  done
+  ssh $com "crontab ~/prometheus/scripts/monitoring.crontab"
 done

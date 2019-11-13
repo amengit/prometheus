@@ -1,0 +1,8 @@
+# crontab -e; execute every 10s
+* * * * * bash ~/prometheus/scripts/push_cpu.sh;bash ~/prometheus/scripts/push_io.sh;bash ~/prometheus/scripts/push_memory.sh
+* * * * * sleep 10; bash ~/prometheus/scripts/push_cpu.sh;bash ~/prometheus/scripts/push_io.sh;bash ~/prometheus/scripts/push_memory.sh
+* * * * * sleep 20; bash ~/prometheus/scripts/push_cpu.sh;bash ~/prometheus/scripts/push_io.sh;bash ~/prometheus/scripts/push_memory.sh
+* * * * * sleep 30; bash ~/prometheus/scripts/push_cpu.sh;bash ~/prometheus/scripts/push_io.sh;bash ~/prometheus/scripts/push_memory.sh
+* * * * * sleep 40; bash ~/prometheus/scripts/push_cpu.sh;bash ~/prometheus/scripts/push_io.sh;bash ~/prometheus/scripts/push_memory.sh
+* * * * * sleep 50; bash ~/prometheus/scripts/push_cpu.sh;bash ~/prometheus/scripts/push_io.sh;bash ~/prometheus/scripts/push_memory.sh
+
