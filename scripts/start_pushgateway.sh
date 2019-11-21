@@ -2,8 +2,9 @@
 
 pushgw_image=pushgateway-1031.tar
 echo "===== Start pushgateway docker ====="
+sudo systemctl restart docker
 sudo docker stop pushgateway ; sudo docker rm pushgateway
-sudo docker images | grep pushgateway || sudo docker load <./$pushgw_image
+sudo docker images | grep pushgateway || sudo docker load < prometheus/$pushgw_image
 sudo docker run -d -it --name=pushgateway \
 -p 9091:9091 \
 pushgateway-1031 \
