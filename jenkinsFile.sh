@@ -2,7 +2,6 @@
 
 yum -y install sshpass
 echo "===== Enabling IP forwarding ====="
-echo "===== Enabling IP forwarding ====="
 if ! grep -q 'net.ipv4.ip_forward=1' /usr/lib/sysctl.d/00-system.conf; then
   echo "net.ipv4.ip_forward=1" >> /usr/lib/sysctl.d/00-system.conf
   systemctl restart network
