@@ -1,8 +1,9 @@
 #!/bin/bash -x
 
+yum -y install sshpass
 echo "===== Enabling IP forwarding ====="
-if ! cat /usr/lib/sysctl.d/00-system.conf | grep "net.ipv4.ip_forward=1" > /dev/null
-then
+echo "===== Enabling IP forwarding ====="
+if ! grep -q 'net.ipv4.ip_forward=1' /usr/lib/sysctl.d/00-system.conf; then
   echo "net.ipv4.ip_forward=1" >> /usr/lib/sysctl.d/00-system.conf
   systemctl restart network
   sleep 5
