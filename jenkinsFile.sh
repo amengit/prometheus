@@ -32,17 +32,17 @@ echo "===== Open firewll to port 9090 ====="
 iptables -I INPUT -p tcp --dport 9090 -m state --state NEW -j ACCEPT
 
 echo "===== Configure ssh_config to not prompt message ====="
-if ! /etc/ssh/ssh_config | grep "StrictHostKeyChecking" > /dev/null
-then
-  echo "StrictHostKeyChecking no" >> /etc/ssh/ssh_config
+if [ "0" -ge `grep -c "StrictHostKeyChecking" /etc/ssh/ssh_config` ] ;then
+    echo "StrictHostKeyChecking no" >> /etc/ssh/ssh_config
 else
-  sed -i '/StrictHostKeyChecking/s/^#//; /StrictHostKeyChecking/s/ask/no/' /etc/ssh/ssh_config
+    sed -i '/StrictHostKeyChecking/s/^#//; /StrictHostKeyChecking/s/ask/no/' /etc/ssh/ssh_config
 fi
 sed -i "/#UseDNS/ s/^#//; /UseDNS/ s/yes/no/" /etc/ssh/sshd_config
  
 set -e
 
 echo "===== Copy id_rsa.pub to controller $openStackIp ====="
+echo > /$USER/.ssh/known_hosts
 sshpass -p $passWord ssh-copy-id -i /root/.ssh/id_rsa.pub -f $userName@$openStackIp 2>/dev/null
 
 echo "===== Copy scripts to controller $openStackIp ====="
